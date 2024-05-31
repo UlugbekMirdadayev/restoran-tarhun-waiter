@@ -1,0 +1,125 @@
+header {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: #3d3d3d;
+  z-index: 5;
+}
+header a {
+  color: #fff;
+  text-align: center;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: -0.24px;
+  position: relative;
+  z-index: 3;
+}
+header button {
+  border: 0;
+  background: none;
+  position: relative;
+  z-index: 3;
+}
+
+header button:active {
+  scale: 0.9;
+}
+
+.list-bar {
+  padding: 60px 10px 10px 10px;
+  background: rgba(0, 0, 0, 1);
+  position: relative;
+}
+
+.list-bar li a {
+  font-size: 20px;
+  color: #fff;
+  padding: 8px 16px;
+  display: flex;
+  margin: 10px 0px;
+  background-color: #ffffff1d;
+  transition: 100ms ease;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.list-bar li a:hover {
+  background-color: #67bd66b1;
+}
+
+.list-bar li a:active {
+  background-color: #ffffff1d;
+}
+
+.list-bar li a.logout {
+  background-color: #f40;
+  margin-top: 50px;
+}
+
+.profile-link {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  background: #d9d9d9;
+  display: grid;
+  place-content: center;
+  position: relative;
+}
+
+.profile-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.word-user {
+  color: #000;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.count-orders {
+  font-size: 14px;
+  color: #fff;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  padding: 5px;
+  background-color: #000;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-content: center;
+}
+.list-bar .absolute {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 3;
+}
+
+.list-bar .absolute button {
+  padding: 10px 16px;
+  color: #fff;
+}
+
+.reject {
+  background-color: #f40;
+}
+
+.resolve {
+  background-color: #3d3d3d;
+}
