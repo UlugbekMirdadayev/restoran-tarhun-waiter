@@ -5,6 +5,7 @@ import { getRequest, postRequest } from 'services/api';
 import { useLocaleOrders, useUser } from '../../redux/selectors';
 import { setProducts } from '../../redux/products';
 import { setOrders } from '../../redux/orders';
+import { setModifiers } from '../../redux/modifiers';
 import { setUser } from '../../redux/user';
 import * as i from 'assets/icon';
 import './style.css';
@@ -41,6 +42,16 @@ const Header = () => {
       });
   };
 
+  const getModifiers = () => {
+    getRequest('product/modifier/get', user?.token)
+      .then(({ data }) => {
+        dispatch(setModifiers(data?.result));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const getProduct = () => {
     getRequest('product/get', user?.token)
       .then((products) => {
@@ -55,6 +66,7 @@ const Header = () => {
   useEffect(() => {
     getRoom();
     getProduct();
+    getModifiers();
   }, [user?.token]);
 
   const handleExit = () => {
@@ -63,6 +75,7 @@ const Header = () => {
     dispatch(setOrders([]));
     dispatch(setProducts([]));
     dispatch(setRooms([]));
+    dispatch(setModifiers([]))
     localStorage.clear();
     postRequest('auth/logout', {}, user?.token)
       .then(({ data }) => {

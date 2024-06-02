@@ -4,6 +4,8 @@ import rooms from './rooms';
 import localeOrders from './localeOrders';
 import products from './products';
 import orders from './orders';
+import modifiers from './modifiers';
+
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,7 @@ export const store = configureStore({
     rooms,
     products,
     orders,
-    localeOrders
+    localeOrders,
+    modifiers
   }
 });

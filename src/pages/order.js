@@ -51,7 +51,7 @@ const Order = () => {
   const getOldOrders = useCallback(() => {
     getRequest(`room/get/${id}`, user?.token)
       .then(({ data }) => {
-        setCountClient(data?.result?.count_client)
+        setCountClient(data?.result?.count_client);
         setOldOrders(data?.result);
         if (!data?.result?.products?.length) {
           setIsOrderMore({ open: false });

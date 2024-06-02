@@ -4,11 +4,17 @@ import { useDispatch } from 'react-redux';
 import { addLocaleOrder, removeLocaleOrder } from '../../redux/localeOrders';
 import { Minus, Plus } from 'assets/icon';
 import { IMG_URL } from 'utils/constants';
+import { useModifiers } from '../../redux/selectors';
 import { formatCurrencyUZS } from 'utils';
+import { Checkbox } from 'components/icons';
 
 const Accord = ({ room, id, defaultOpened = false, thisRoomOrders = [] }) => {
+  const modifiers = useModifiers();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(defaultOpened);
+  const [modalOpen, setModalOpen] = useState(defaultOpened);
+
+  const thisProdModifiers = useCallback((prod_id) => modifiers?.filter((mod) => mod?.product?.id === prod_id), [modifiers]);
 
   const handleAddBasket = useCallback(
     (recep) => {
@@ -55,7 +61,36 @@ const Accord = ({ room, id, defaultOpened = false, thisRoomOrders = [] }) => {
                 <div className="price-prod">Narxi: {formatCurrencyUZS(recep?.sell_price)}</div>
                 <span className="price-prod">Soni: {recep?.is_infinite ? 'Cheksiz' : recep?.quantity}</span>
               </div>
-              {thisSelectedProd(recep)?.count ? (
+              {modalOpen === recep?.id && (
+                <div className="modal-overlay" onClick={() => setModalOpen(false)}>
+                  <div className="modifier-modal" onClick={(e) => e.stopPropagation()}>
+                    <h1>Modifikatorlar</h1>
+                    <br />
+                    {thisProdModifiers(recep?.id).map((modifier) => (
+                      <label className="modifier" key={modifier?.id}>
+                        <div className="left-modifier">
+                          <span>
+                            {modifier?.name} - {recep?.name}
+                          </span>
+                          <Checkbox />
+                          <input type="checkbox" />
+                        </div>
+                        <button className="row-bottom">
+                          <Minus />
+                          10
+                          <Plus />
+                        </button>
+                      </label>
+                    ))}
+                    <button className="closer-btn" onClick={() => setModalOpen(false)}>
+                      {"Qo'shish"}
+                    </button>
+                  </div>
+                </div>
+              )}
+              {recep?.modifier_exists ? (
+                <button onClick={() => setModalOpen(recep?.id)}>Modifikatorlar</button>
+              ) : thisSelectedProd(recep)?.count ? (
                 <button className="row-bottom">
                   <Minus onClick={() => handleRemoveBasket(recep)} />
                   {thisSelectedProd(recep)?.count}
