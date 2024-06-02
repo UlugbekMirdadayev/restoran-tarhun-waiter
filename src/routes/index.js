@@ -1,7 +1,8 @@
 import React, { lazy } from 'react';
 
 const routes = [
-  { path: '/', element: lazy(() => import('../pages/rooms')) },
+  { path: '/', element: lazy(() => import('../pages/prerooms')) },
+  { path: '/prerooms', element: lazy(() => import('../pages/prerooms')) },
   { path: '/rooms', element: lazy(() => import('../pages/rooms')) },
   { path: '/order/:id', element: lazy(() => import('../pages/order')) },
   { path: '/login', element: lazy(() => import('../pages/auth/login')) },

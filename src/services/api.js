@@ -6,7 +6,7 @@ const configuration = (token) => {
     validateStatus: function (status) {
       if ([403, 401].includes(status)) {
         localStorage.clear();
-        window.location.href = '/login';
+        // window.location.href = '/login';
       }
       return status >= 200 && status < 300;
     },

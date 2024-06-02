@@ -30,22 +30,28 @@ const Order = () => {
   const sumWithInitial = thisRoomOrders?.reduce((accumulator, currentValue) => {
     return Number(accumulator) + Number(currentValue.sell_price * currentValue.count);
   }, []);
+  const [search, setSearch] = useState('');
 
   const menus = useMemo(() => {
     const types = [...new Set(products?.map(({ category }) => category?.name))];
-    return types?.map((_category_name) => {
-      return {
-        name: _category_name,
-        menus: products?.filter(({ category }) => category?.name === _category_name)
-      };
-    });
-  }, [products]);
+    return types
+      ?.map((_category_name) => {
+        return {
+          name: _category_name,
+          menus: products?.filter(
+            ({ category, name }) => category?.name === _category_name && (search?.length ? name?.includes(search) : true)
+          )
+        };
+      })
+      .filter(({ menus }) => menus?.find((prod) => prod?.name?.includes(search)));
+  }, [products, search]);
 
   const isOrder = useMemo(() => orders?.find((order) => order?.room_id === id), [orders, id]);
 
   const getOldOrders = useCallback(() => {
     getRequest(`room/get/${id}`, user?.token)
       .then(({ data }) => {
+        setCountClient(data?.result?.count_client)
         setOldOrders(data?.result);
         if (!data?.result?.products?.length) {
           setIsOrderMore({ open: false });
@@ -116,7 +122,7 @@ const Order = () => {
 
   const handleComplete = () => {
     setLoading(true);
-    getRequest(`room/end/${id}`, user?.token)
+    getRequest(`room/end/${id}?count_client=${countClient}`, user?.token)
       .then(({ data }) => {
         setLoading(false);
         toast.success(data?.result);
@@ -133,7 +139,8 @@ const Order = () => {
   useOutsideClick(modal, () => setIsOrderMore({ open: false }));
 
   return (
-    <div className="container-md">
+    <div className="container-md order-container">
+      <input type="search" placeholder="search" value={search} onChange={(e) => setSearch(e.target.value)} />
       {modalIsOpen && (
         <div className="modal-overlay" onClick={() => setModalIsOpen(false)}>
           <div className="modal-cc" onClick={(e) => e.stopPropagation()}>
@@ -175,6 +182,15 @@ const Order = () => {
                     onUpdated={() => getOldOrders()}
                   />
                 ))}
+                <br />
+                <h2>Nechi kishi bor edi</h2>
+                <select className="styled-select" value={countClient} onChange={(e) => setCountClient(e.target.value)}>
+                  {Array.from({ length: 20 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
               </ol>
             </div>
             <button className="order-btn full-btn" onClick={handleComplete}>
@@ -184,7 +200,7 @@ const Order = () => {
         </div>
       )}
       <div className="row-header">
-        <NavLink to={'/rooms'}>
+        <NavLink to={-1}>
           <button>Ortga qaytish</button>
         </NavLink>
         <h1 className="full">Menu</h1>

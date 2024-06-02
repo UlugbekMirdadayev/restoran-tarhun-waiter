@@ -13,7 +13,7 @@ import { useOutsideClick } from 'utils/hooks';
 import { toast } from 'react-toastify';
 
 const links = [
-  { label: 'Joylar royxati', to: '/rooms' },
+  { label: 'Joylar', to: '/prerooms' },
   { label: 'Chiqish', to: '/', logout: true }
 ];
 
@@ -120,7 +120,7 @@ const Header = () => {
       >
         <i.Menu />
       </button>
-      <NavLink onClick={() => setOpen(false)} className={'profile-link'} to={'/rooms'}>
+      <NavLink onClick={() => setOpen(false)} className={'profile-link'} to={'/prerooms'}>
         {/* <img src={'https://picsum.photos/50/50'} alt="profile" /> */}
         <span className="word-user">{loading ? <div className="lds-dual-ring" /> : user?.full_name?.slice(0, 1) || 'H'}</span>
         {localeOrders?.length ? <span className="count-orders">{localeOrders?.length || ''}</span> : ''}

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // Initialize the result array
 export const arraySplicer = (array, splicer) => {
   const subarraySizes = Array.from({
@@ -19,4 +20,24 @@ export function formatCurrencyUZS(amount) {
     maximumFractionDigits: 2
   });
   return formatter.format(amount);
+}
+
+export function groupRoomsByType(data) {
+  const grouped = {};
+
+  data.forEach((item) => {
+    const roomType = item.room_type_name;
+    if (!grouped[roomType]) {
+      grouped[roomType] = {
+        room_type: roomType,
+        children: []
+      };
+    }
+    const { room_type_name, ...rest } = item;
+    grouped[roomType].children.push(rest);
+  });
+
+  const sortedGroups = Object.values(grouped).sort((a, b) => a.room_type.localeCompare(b.room_type));
+
+  return sortedGroups;
 }

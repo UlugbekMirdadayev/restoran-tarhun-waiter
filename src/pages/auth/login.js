@@ -26,7 +26,7 @@ const Register = () => {
         toast.success(data?.message || 'Success');
         dispatch(setUser(data?.result));
         localStorage.setItem('user', JSON.stringify(data?.result));
-        navigate('/rooms', { replace: true });
+        navigate('/prerooms', { replace: true });
       })
       .catch(({ response } = { response: {} }) => {
         setLoading(false);
@@ -36,7 +36,7 @@ const Register = () => {
 
   useEffect(() => {
     if (user?.id) {
-      navigate('/rooms', { replace: true });
+      navigate('/prerooms', { replace: true });
     }
   }, [user?.id, navigate]);
 
