@@ -17,7 +17,7 @@ export const localeOrdersSlice = createSlice({
                 ...st,
                 recs: st.recs.map((recs) => {
                   if (thisRecs?.id === recs?.id) {
-                    return { ...recs, count: recs.count + 1 };
+                    return { ...recs, count: recs.count + (recs?.measurement?.name === 'Porsa' ? 0.5 : 1) };
                   }
                   return recs;
                 })
@@ -25,7 +25,7 @@ export const localeOrdersSlice = createSlice({
             }
             return {
               ...st,
-              recs: [...st.recs, { ...payload, count: 1 }]
+              recs: [...st.recs, { ...payload, count: payload?.measurement?.name === 'Porsa' ? 0.5 : 1 }]
             };
           }
           return st;
@@ -35,7 +35,7 @@ export const localeOrdersSlice = createSlice({
         ...state,
         {
           room: payload.room,
-          recs: [{ ...payload, count: 1 }]
+          recs: [{ ...payload, count: payload?.measurement?.name === 'Porsa' ? 0.5 : 1 }]
         }
       ];
     },
@@ -47,8 +47,8 @@ export const localeOrdersSlice = createSlice({
             const orders = st?.recs
               ?.map((rec) => {
                 if (rec.id === payload?.id) {
-                  if (rec.count - 1) {
-                    return { ...rec, count: rec.count - 1 };
+                  if (rec.count - (payload?.measurement?.name === 'Porsa' ? 0.5 : 1)) {
+                    return { ...rec, count: rec.count - (payload?.measurement?.name === 'Porsa' ? 0.5 : 1) };
                   } else {
                     return false;
                   }

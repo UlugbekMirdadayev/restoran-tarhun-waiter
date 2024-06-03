@@ -39,11 +39,11 @@ const Order = () => {
         return {
           name: _category_name,
           menus: products?.filter(
-            ({ category, name }) => category?.name === _category_name && (search?.length ? name?.includes(search) : true)
+            ({ category, name }) => category?.name === _category_name && (search?.length ? name.toLowerCase()?.includes(search?.toLowerCase()) : true)
           )
         };
       })
-      .filter(({ menus }) => menus?.find((prod) => prod?.name?.includes(search)));
+      .filter(({ menus }) => menus?.find((prod) => prod?.name?.toLowerCase()?.includes(search.toLowerCase())));
   }, [products, search]);
 
   const isOrder = useMemo(() => orders?.find((order) => order?.room_id === id), [orders, id]);

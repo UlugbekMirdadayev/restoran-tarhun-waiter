@@ -17,6 +17,10 @@ body {
   background: rgba(0, 0, 0, 0.76);
 }
 
+body:has(.modifier-modal){
+  overflow: hidden;
+}
+
 .container {
   max-width: 960px;
   width: 100%;
@@ -659,6 +663,7 @@ a:has(.cart-view) {
   margin: 0 auto;
   position: relative;
   overflow-y: auto;
+  max-width: 768px;
   max-height: 90dvh;
 
   .closer-btn {
@@ -703,6 +708,7 @@ a:has(.cart-view) {
         overflow: hidden;
         text-wrap: nowrap;
         text-overflow: ellipsis;
+        text-align: left;
       }
       input {
         display: none;
