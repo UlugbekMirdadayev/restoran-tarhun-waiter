@@ -93,12 +93,11 @@ const Rooms = () => {
               <button
                 className="cart-view"
                 onClick={(e) => handleViewCart(e, room?.id)}
-                disabled={user?.role === 1 ? false : user?.id !== room?.user_id}
+                disabled={user?.role === 1 ? !room?.user_id : user?.id !== room?.user_id}
               >
                 {loading === room?.id ? <div className="lds-dual-ring" style={{ '--color': '#fff' }} /> : <CartIcon />}
               </button>
-              <p>{room?.name}-stol</p>
-              <p>{room?.places}-kishilik</p>
+              <p>{room?.name}</p>
               {room?.is_active ? <p>band stol</p> : null}
             </Link>
           ))}

@@ -39,7 +39,8 @@ const Order = () => {
         return {
           name: _category_name,
           menus: products?.filter(
-            ({ category, name }) => category?.name === _category_name && (search?.length ? name.toLowerCase()?.includes(search?.toLowerCase()) : true)
+            ({ category, name }) =>
+              category?.name === _category_name && (search?.length ? name.toLowerCase()?.includes(search?.toLowerCase()) : true)
           )
         };
       })
@@ -51,10 +52,11 @@ const Order = () => {
   const getOldOrders = useCallback(() => {
     getRequest(`room/get/${id}`, user?.token)
       .then(({ data }) => {
-        setCountClient(data?.result?.count_client);
         setOldOrders(data?.result);
         if (!data?.result?.products?.length) {
           setIsOrderMore({ open: false });
+        } else {
+          setCountClient(data?.result?.count_client);
         }
       })
       .catch((err) => {
