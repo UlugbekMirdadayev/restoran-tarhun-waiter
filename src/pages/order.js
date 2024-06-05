@@ -1,15 +1,21 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback,
+  //  useEffect, 
+   useMemo,
+    // useRef,
+    useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import Accord from 'components/accord';
 import { formatCurrencyUZS } from 'utils';
-import { useOutsideClick } from 'utils/hooks';
+// import { useOutsideClick } from 'utils/hooks';
 // import { departments, sendMessageTelegram } from 'utils/constants';
 import { getRequest, postRequest } from 'services/api';
-import { useLocaleOrders, useOrders, useProducts, useUser } from '../redux/selectors';
+import { useLocaleOrders, 
+  // useOrders,
+   useProducts, useUser } from '../redux/selectors';
 import { setRoomCompleted } from '../redux/localeOrders';
-import OrderList from 'components/order-list';
+// import OrderList from 'components/order-list';
 import { setProducts } from '../redux/products';
 // import axios from 'axios';
 
@@ -18,11 +24,11 @@ const Order = () => {
   const user = useUser();
   const localeOrders = useLocaleOrders();
   const products = useProducts();
-  const orders = useOrders();
+  // const orders = useOrders();
   const { id } = useParams();
-  const modal = useRef();
+  // const modal = useRef();
   const [loading, setLoading] = useState();
-  const [isOrderMore, setIsOrderMore] = useState({ open: false });
+  // const [isOrderMore, setIsOrderMore] = useState({ open: false });
   const [oldOrders, setOldOrders] = useState({});
   // const rooms = useRooms();
   // const thisRoom = useMemo(() => rooms?.find((rooms) => rooms.id === id), [rooms, id]);
@@ -47,26 +53,26 @@ const Order = () => {
       .filter(({ menus }) => menus?.find((prod) => prod?.name?.toLowerCase()?.includes(search.toLowerCase())));
   }, [products, search]);
 
-  const isOrder = useMemo(() => orders?.find((order) => order?.room_id === id), [orders, id]);
+  // const isOrder = useMemo(() => orders?.find((order) => order?.room_id === id), [orders, id]);
 
   const getOldOrders = useCallback(() => {
     getRequest(`room/get/${id}`, user?.token)
       .then(({ data }) => {
         setOldOrders(data?.result);
-        if (!data?.result?.products?.length) {
-          setIsOrderMore({ open: false });
-        } else {
-          setCountClient(data?.result?.count_client);
-        }
+        // if (!data?.result?.products?.length) {
+        //   setIsOrderMore({ open: false });
+        // } else {
+        //   setCountClient(data?.result?.count_client);
+        // }
       })
       .catch((err) => {
         toast.error(err?.response?.data?.result);
       });
   }, [id, user?.token]);
 
-  useEffect(() => {
-    getOldOrders();
-  }, [getOldOrders]);
+  // useEffect(() => {
+  //   getOldOrders();
+  // }, [getOldOrders]);
 
   const getProduct = useCallback(() => {
     setLoading(true);
@@ -118,27 +124,27 @@ const Order = () => {
       });
   };
 
-  const handleOpenDetails = () => {
-    setIsOrderMore({ open: true });
-  };
+  // const handleOpenDetails = () => {
+  //   setIsOrderMore({ open: true });
+  // };
 
-  const handleComplete = () => {
-    setLoading(true);
-    getRequest(`room/end/${id}?count_client=${countClient}`, user?.token)
-      .then(({ data }) => {
-        setLoading(false);
-        toast.success(data?.result);
-        dispatch(setRoomCompleted({ room: id }));
-        getOldOrders();
-        setIsOrderMore({ open: false });
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error(err?.response?.data?.result);
-      });
-  };
+  // const handleComplete = () => {
+  //   setLoading(true);
+  //   getRequest(`room/end/${id}?count_client=${countClient}`, user?.token)
+  //     .then(({ data }) => {
+  //       setLoading(false);
+  //       toast.success(data?.result);
+  //       dispatch(setRoomCompleted({ room: id }));
+  //       getOldOrders();
+  //       setIsOrderMore({ open: false });
+  //     })
+  //     .catch((err) => {
+  //       setLoading(false);
+  //       toast.error(err?.response?.data?.result);
+  //     });
+  // };
 
-  useOutsideClick(modal, () => setIsOrderMore({ open: false }));
+  // useOutsideClick(modal, () => setIsOrderMore({ open: false }));
 
   return (
     <div className="container-md order-container">
@@ -158,15 +164,15 @@ const Order = () => {
           </div>
         </div>
       )}
-      {isOrderMore.open && (
+      {/* {isOrderMore.open && (
         <div className="modal modal-prods">
           <div className="modal-body" ref={modal}>
             <div className="top">
               <div className="row-header">
                 <button onClick={() => setIsOrderMore({ open: false })}>Ortga</button>
-                {/* <button onClick={() => handleCancel(isOrderMore?.id)}>
+                * <button onClick={() => handleCancel(isOrderMore?.id)}>
                   {loading ? <div className="lds-dual-ring" /> : 'Bekor qilish'}
-                </button> */}
+                </button> *
               </div>
               <ol className="alternating-colors">
                 <strong>{"Buyurtma ma'lumotlari"}</strong>
@@ -200,7 +206,7 @@ const Order = () => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
       <div className="row-header">
         <NavLink to={-1}>
           <button>Ortga qaytish</button>
@@ -214,7 +220,7 @@ const Order = () => {
           <Accord key={key} room={room} id={id} thisRoomOrders={thisRoomOrders} />
         ))}
       <div className="bottom-btns">
-        {oldOrders?.total ? (
+        {/* {oldOrders?.total ? (
           <button className="order-btn" disabled={loading} onClick={() => handleOpenDetails(isOrder?.id)}>
             {loading ? (
               <div className="lds-dual-ring" />
@@ -224,7 +230,7 @@ const Order = () => {
           </button>
         ) : (
           ''
-        )}
+        )} */}
         {thisRoomOrders?.length ? (
           <button disabled={loading} className="order-btn" onClick={oldOrders?.total ? handleAddCart : openModal}>
             {loading ? (
