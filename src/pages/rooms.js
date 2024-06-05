@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useRooms, useUser } from '../redux/selectors';
-import { CartIcon, EyeIcon } from 'components/icons';
+import { CartIcon, CompleteIcon } from 'components/icons';
 import { getRequest } from 'services/api';
 import { toast } from 'react-toastify';
 import { setRoomCompleted } from '../redux/localeOrders';
@@ -125,7 +125,7 @@ const Rooms = () => {
                     onClick={(e) => handleViewCart(e, room?.id, true)}
                     disabled={user?.role === 1 ? !room?.user_id : user?.id !== room?.user_id}
                   >
-                    {loadingComplete === room?.id ? <div className="lds-dual-ring" style={{ '--color': '#fff' }} /> : <CartIcon />}
+                    {loadingComplete === room?.id ? <div className="lds-dual-ring" style={{ '--color': '#fff' }} /> : <CompleteIcon  />}
                   </button>
                   <button
                     className="cart-closer"
@@ -135,7 +135,7 @@ const Rooms = () => {
                     {(loadingComplete ? false : loading === room?.id) ? (
                       <div className="lds-dual-ring" style={{ '--color': '#fff' }} />
                     ) : (
-                      <EyeIcon />
+                      <CartIcon />
                     )}
                   </button>
                 </>

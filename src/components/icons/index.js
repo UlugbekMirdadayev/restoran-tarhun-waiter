@@ -15,21 +15,13 @@ const Checkbox = (props) => (
   </svg>
 );
 
-const EyeIcon = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
-    <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
+const CompleteIcon = (props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" {...props}>
+    <path d="M202.5 47.3h-31.1v12.4h31v173.9h-149V59.7h31V47.3h-31c-6.9 0-12.4 5.6-12.4 12.4v173.9c0 6.9 5.6 12.4 12.4 12.4h149c6.9 0 12.4-5.6 12.4-12.4V59.7c0-6.9-5.6-12.4-12.5-12.4z" />
+    <path d="M152.9 34.9h-49.7c-3.4 0-6.2 2.8-6.2 6.2v24.9c0 3.4 2.8 6.2 6.2 6.2h49.7c3.4 0 6.2-2.8 6.2-6.2V41c0-3.4-2.8-6.1-6.2-6.1zM146.7 59.7h-37.3V47.3h37.3v12.4z" />
+    <path d="M146.6 28.4c-.1-10.2-8.4-18.4-18.6-18.4s-18.4 8.2-18.6 18.4v12.2h37.3V28.4zM128 34.9c-3.4 0-6.2-2.8-6.2-6.2s2.8-6.2 6.2-6.2 6.2 2.8 6.2 6.2-2.8 6.2-6.2 6.2z" />
+    <path d="M167.5 120.3c2.4 2.4 2.4 6.4 0 8.8l-43.9 43.9c-2.4 2.4-6.4 2.4-8.8 0-2.4-2.4-2.4-6.4 0-8.8l43.9-43.9c2.4-2.4 6.4-2.4 8.8 0z" />
+    <path d="M88.5 137.8c2.4-2.4 6.4-2.4 8.8 0l26.3 26.3c2.4 2.4 2.4 6.4 0 8.8-2.4 2.4-6.4 2.4-8.8 0l-26.3-26.3c-2.4-2.4-2.4-6.4 0-8.8z" />
   </svg>
 );
-export { CartIcon, Checkbox, EyeIcon };
+export { CartIcon, Checkbox, CompleteIcon };
