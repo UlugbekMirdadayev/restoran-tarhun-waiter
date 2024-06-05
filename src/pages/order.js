@@ -1,9 +1,11 @@
-import React, { useCallback,
-  //  useEffect, 
-   useMemo,
-    // useRef,
-    useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import React, {
+  useCallback,
+  //  useEffect,
+  useMemo,
+  // useRef,
+  useState
+} from 'react';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import Accord from 'components/accord';
@@ -11,9 +13,12 @@ import { formatCurrencyUZS } from 'utils';
 // import { useOutsideClick } from 'utils/hooks';
 // import { departments, sendMessageTelegram } from 'utils/constants';
 import { getRequest, postRequest } from 'services/api';
-import { useLocaleOrders, 
+import {
+  useLocaleOrders,
   // useOrders,
-   useProducts, useUser } from '../redux/selectors';
+  useProducts,
+  useUser
+} from '../redux/selectors';
 import { setRoomCompleted } from '../redux/localeOrders';
 // import OrderList from 'components/order-list';
 import { setProducts } from '../redux/products';
@@ -23,11 +28,15 @@ const Order = () => {
   const dispatch = useDispatch();
   const user = useUser();
   const localeOrders = useLocaleOrders();
-  const products = useProducts();
+  const productsData = useProducts();
   // const orders = useOrders();
   const { id } = useParams();
   // const modal = useRef();
   const [loading, setLoading] = useState();
+  const [typeProds, setTypeProds] = useState(null);
+
+  const products = useMemo(() => productsData?.filter(({ category }) => category?.type === typeProds), [typeProds, productsData]);
+
   // const [isOrderMore, setIsOrderMore] = useState({ open: false });
   const [oldOrders, setOldOrders] = useState({});
   // const rooms = useRooms();
@@ -148,23 +157,25 @@ const Order = () => {
 
   return (
     <div className="container-md order-container">
-      <input type="search" placeholder="search" value={search} onChange={(e) => setSearch(e.target.value)} />
-      {modalIsOpen && (
-        <div className="modal-overlay" onClick={() => setModalIsOpen(false)}>
-          <div className="modal-cc" onClick={(e) => e.stopPropagation()}>
-            <h2>Nechi kishi bor</h2>
-            <select className="styled-select" value={countClient} onChange={(e) => setCountClient(e.target.value)}>
-              {Array.from({ length: 20 }, (_, i) => (
-                <option key={i + 1} value={i + 1}>
-                  {i + 1}
-                </option>
-              ))}
-            </select>
-            <button onClick={closeModal}>Yuborish</button>
-          </div>
-        </div>
-      )}
-      {/* {isOrderMore.open && (
+      {typeProds ? (
+        <>
+          <input type="search" placeholder="search" value={search} onChange={(e) => setSearch(e.target.value)} />
+          {modalIsOpen && (
+            <div className="modal-overlay" onClick={() => setModalIsOpen(false)}>
+              <div className="modal-cc" onClick={(e) => e.stopPropagation()}>
+                <h2>Nechi kishi bor</h2>
+                <select className="styled-select" value={countClient} onChange={(e) => setCountClient(e.target.value)}>
+                  {Array.from({ length: 20 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
+                <button onClick={closeModal}>Yuborish</button>
+              </div>
+            </div>
+          )}
+          {/* {isOrderMore.open && (
         <div className="modal modal-prods">
           <div className="modal-body" ref={modal}>
             <div className="top">
@@ -207,20 +218,20 @@ const Order = () => {
           </div>
         </div>
       )} */}
-      <div className="row-header">
-        <NavLink to={-1}>
-          <button>Ortga qaytish</button>
-        </NavLink>
-        <h1 className="full">Menu</h1>
-      </div>
+          <div className="row-header">
+            <NavLink to={'#'} onClick={() => setTypeProds(null)}>
+              <button>Ortga qaytish</button>
+            </NavLink>
+            <h1 className="full">Menu</h1>
+          </div>
 
-      {menus
-        ?.sort((a, b) => a?.name?.localeCompare(b?.name))
-        ?.map((room, key) => (
-          <Accord key={key} room={room} id={id} thisRoomOrders={thisRoomOrders} />
-        ))}
-      <div className="bottom-btns">
-        {/* {oldOrders?.total ? (
+          {menus
+            ?.sort((a, b) => a?.name?.localeCompare(b?.name))
+            ?.map((room, key) => (
+              <Accord key={key} room={room} id={id} thisRoomOrders={thisRoomOrders} />
+            ))}
+          <div className="bottom-btns">
+            {/* {oldOrders?.total ? (
           <button className="order-btn" disabled={loading} onClick={() => handleOpenDetails(isOrder?.id)}>
             {loading ? (
               <div className="lds-dual-ring" />
@@ -231,18 +242,37 @@ const Order = () => {
         ) : (
           ''
         )} */}
-        {thisRoomOrders?.length ? (
-          <button disabled={loading} className="order-btn" onClick={oldOrders?.total ? handleAddCart : openModal}>
-            {loading ? (
-              <div className="lds-dual-ring" />
+            {thisRoomOrders?.length ? (
+              <button disabled={loading} className="order-btn" onClick={oldOrders?.total ? handleAddCart : openModal}>
+                {loading ? (
+                  <div className="lds-dual-ring" />
+                ) : (
+                  <span>Buyurtma berish {sumWithInitial && `${formatCurrencyUZS(sumWithInitial)?.replace('UZS', '')} UZS`}</span>
+                )}
+              </button>
             ) : (
-              <span>Buyurtma berish {sumWithInitial && `${formatCurrencyUZS(sumWithInitial)?.replace('UZS', '')} UZS`}</span>
+              ''
             )}
-          </button>
-        ) : (
-          ''
-        )}
-      </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="row-header">
+            <NavLink to={-1}>
+              <button>Ortga qaytish</button>
+            </NavLink>
+            <h1 className="full">Menu</h1>
+          </div>
+          <div className="grid">
+            <Link to={'#'} className={`room`} onClick={() => setTypeProds('1')}>
+              <p>Бар</p>
+            </Link>
+            <Link to={'#'} className={`room`} onClick={() => setTypeProds('2')}>
+              <p>Блюда</p>
+            </Link>
+          </div>
+        </>
+      )}
     </div>
   );
 };
