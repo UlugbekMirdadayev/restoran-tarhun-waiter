@@ -4,8 +4,10 @@ import { Minus } from 'assets/icon';
 import { formatCurrencyUZS } from 'utils';
 import { postRequest } from 'services/api';
 import { toast } from 'react-toastify';
+import { useUser } from '../../redux/selectors';
 
 const OrderList = ({ product, loading, setLoading, room, token, onUpdated }) => {
+  const user = useUser();
   const [returnedProduct, setReturnedProduct] = useState(0);
   const handleRemoveProduct = () => {
     if (!product?.id) {
@@ -36,7 +38,7 @@ const OrderList = ({ product, loading, setLoading, room, token, onUpdated }) => 
   };
   return (
     <li key={product?.name}>
-      <button disabled={loading} className="remove" onClick={handleRemoveProduct}>
+      <button title='Only admin' disabled={loading || user?.role !== 1} className="remove" onClick={handleRemoveProduct}>
         {loading ? <div className="lds-dual-ring" /> : <Minus />}
       </button>
       <strong className="row">

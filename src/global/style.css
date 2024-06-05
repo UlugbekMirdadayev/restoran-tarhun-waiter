@@ -17,7 +17,7 @@ body {
   background: rgba(0, 0, 0, 0.76);
 }
 
-body:has(.modifier-modal){
+body:has(.modifier-modal) {
   overflow: hidden;
 }
 
@@ -96,12 +96,15 @@ button {
 
 .row-header h1 {
   color: #fff;
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 16px;
+  line-height: 16px;
   border-radius: 10px;
   background: #757070;
   padding: 12px;
   flex: 0.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .row-header button {
@@ -110,7 +113,7 @@ button {
   background: #67bd66;
   padding: 12px;
   color: #fff;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 20px;
   border: 1px solid #67bd66;
 }
@@ -171,8 +174,8 @@ button {
   color: #67bd66;
   transition: 200ms ease;
   user-select: none;
-  font-size: 18px;
-  line-height: 26px;
+  font-size: 16px;
+  line-height: 20px;
   border-radius: 10px;
   padding: 13px;
   border: 1px solid #67bd66;
@@ -423,7 +426,7 @@ form button:active {
 .alternating-colors li {
   color: #4f4f4f;
   position: relative;
-  font-size: 22px;
+  font-size: 16px;
   line-height: 30px;
   padding: 8px 16px;
   border-radius: 4px;
@@ -432,6 +435,11 @@ form button:active {
   color: #fff;
   padding-right: 70px;
 }
+
+.alternating-colors > h2 { 
+  font-size: 16px;
+}
+
 .alternating-colors > strong {
   display: block;
   width: 100%;
@@ -492,6 +500,10 @@ form button:active {
   border: none;
 }
 
+.alternating-colors .remove:disabled {
+  background-color: #dedede;
+}
+
 .alternating-colors .remove svg {
   fill: #fff;
 }
@@ -517,8 +529,12 @@ form button:active {
     height: 290px;
   }
   .opener-image {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
+  }
+  .accord .full svg {
+    width: 13px;
+    height: 13px;
   }
 }
 .modal-overlay {
@@ -574,6 +590,7 @@ a:has(.cart-view) {
   position: relative;
 }
 
+.cart-closer,
 .cart-view {
   background-color: transparent;
   position: absolute;
@@ -583,6 +600,13 @@ a:has(.cart-view) {
   padding: 10px;
   background-color: #ffffff38;
   border-radius: 4px;
+  &.cart-closer{
+    top: 60px;
+    svg {
+      fill: none;
+      stroke: #fff;
+    }
+  }
   svg {
     fill: #fff;
   }

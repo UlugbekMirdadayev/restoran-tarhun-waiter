@@ -211,7 +211,7 @@ const Order = () => {
       {menus
         ?.sort((a, b) => a?.name?.localeCompare(b?.name))
         ?.map((room, key) => (
-          <Accord defaultOpened={!key} key={key} room={room} id={id} thisRoomOrders={thisRoomOrders} />
+          <Accord key={key} room={room} id={id} thisRoomOrders={thisRoomOrders} />
         ))}
       <div className="bottom-btns">
         {oldOrders?.total ? (
