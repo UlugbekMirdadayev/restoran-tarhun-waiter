@@ -1,11 +1,11 @@
 import React, {
   useCallback,
-   useEffect,
+  useEffect,
   useMemo,
   // useRef,
   useState
 } from 'react';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import Accord from 'components/accord';
@@ -25,6 +25,7 @@ import { setProducts } from '../redux/products';
 // import axios from 'axios';
 
 const Order = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useUser();
   const localeOrders = useLocaleOrders();
@@ -218,11 +219,13 @@ const Order = () => {
           </div>
         </div>
       )} */}
-          <div className="row-header">
+          <div className="row-header sticky-row-header">
             <NavLink to={'#'} onClick={() => setTypeProds(null)}>
               <button>Ortga qaytish</button>
             </NavLink>
-            <h1 className="full">Menu</h1>
+            <h1 onClick={() => navigate(-1)} className="full">
+              Menu
+            </h1>
           </div>
 
           {menus
