@@ -1,6 +1,6 @@
 import React, {
   useCallback,
-  //  useEffect,
+   useEffect,
   useMemo,
   // useRef,
   useState
@@ -79,9 +79,9 @@ const Order = () => {
       });
   }, [id, user?.token]);
 
-  // useEffect(() => {
-  //   getOldOrders();
-  // }, [getOldOrders]);
+  useEffect(() => {
+    getOldOrders();
+  }, [getOldOrders]);
 
   const getProduct = useCallback(() => {
     setLoading(true);

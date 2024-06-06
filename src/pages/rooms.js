@@ -70,11 +70,7 @@ const Rooms = () => {
       getRequest(`room/get/${room_id}`, user?.token)
         .then(({ data }) => {
           setOldOrders(data?.result);
-          if (!data?.result?.products?.length) {
-            setIsOrderMore({ open: false });
-          } else {
-            setCountClient(data?.result?.count_client);
-          }
+          setCountClient(data?.result?.count_client);
         })
         .catch((err) => {
           toast.error(err?.response?.data?.result);
@@ -160,7 +156,7 @@ const Rooms = () => {
                     setLoading={setLoading}
                     room={isOrderMore.open}
                     token={user?.token}
-                    onUpdated={() => getOldOrders()}
+                    onUpdated={() => getOldOrders(isOrderMore.open)}
                   />
                 ))}
                 <br />
