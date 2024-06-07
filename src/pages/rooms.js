@@ -44,6 +44,10 @@ const Rooms = () => {
       });
   };
   const handleComplete = () => {
+    if (user?.role !== 1) {
+      toast.info("У вас нет разрешения на закрытие заказа !")
+      return;
+    }
     setLoading(true);
     getRequest(`room/end/${isOrderMore.open}?count_client=${countClient}`, user?.token)
       .then(({ data }) => {

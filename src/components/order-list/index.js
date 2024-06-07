@@ -49,7 +49,7 @@ const OrderList = ({ product, loading, setLoading, room, token, onUpdated }) => 
         <strong className="row">
           <span>Qaytarilgan maxsulotlar</span>
           <select className="returned-product" onChange={(e) => setReturnedProduct(e.target.value)}>
-            {Array.from({ length: product?.quantity }).map((_, index) => (
+            {Array.from({ length: product?.quantity + 1  }).map((_, index) => (
               <option key={index} value={index}>
                 {index}
               </option>
