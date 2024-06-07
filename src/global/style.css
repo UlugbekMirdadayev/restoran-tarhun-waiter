@@ -594,14 +594,14 @@ a:has(.cart-view) {
 .cart-view {
   background-color: transparent;
   position: absolute;
-  top: 6px;
+  top: 60px;
   right: 6px;
   border: 0;
   padding: 10px;
   background-color: #ffffff38;
   border-radius: 4px;
   &.cart-closer {
-    top: 60px;
+    top: 6px;
   }
   svg {
     fill: #fff;

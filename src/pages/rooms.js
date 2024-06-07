@@ -196,17 +196,16 @@ const Rooms = () => {
                 user?.role === 1 ? '' : room?.is_active ? (room?.is_belongs_to_user ? '' : 'disabled') : ''
               }`}
             >
-              {user?.role === 1 ? (
+              {
                 <>
+                  {user?.role === 1 ? (
+                    <button className="cart-view" onClick={(e) => handleOpenDetails(e, room?.id)} disabled={!room?.user_id}>
+                      {loadingComplete === room?.id ? <div className="lds-dual-ring" style={{ '--color': '#fff' }} /> : <CompleteIcon />}
+                    </button>
+                  ) : null}
+
                   <button
-                    className="cart-view"
-                    onClick={(e) => handleOpenDetails(e, room?.id)}
-                    disabled={user?.role === 1 ? !room?.user_id : user?.id !== room?.user_id}
-                  >
-                    {loadingComplete === room?.id ? <div className="lds-dual-ring" style={{ '--color': '#fff' }} /> : <CompleteIcon />}
-                  </button>
-                  <button
-                    className="cart-closer"
+                    className="cart-view cart-closer"
                     onClick={(e) => handleViewCart(e, room?.id)}
                     disabled={user?.role === 1 ? !room?.user_id : user?.id !== room?.user_id}
                   >
@@ -217,7 +216,7 @@ const Rooms = () => {
                     )}
                   </button>
                 </>
-              ) : null}
+              }
               <p>{room?.name}</p>
               {room?.is_active ? <p>band stol</p> : null}
             </Link>
