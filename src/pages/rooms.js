@@ -44,10 +44,6 @@ const Rooms = () => {
       });
   };
   const handleComplete = () => {
-    if (user?.role !== 1) {
-      toast.info("У вас нет разрешения на закрытие заказа !")
-      return;
-    }
     setLoading(true);
     getRequest(`room/end/${isOrderMore.open}?count_client=${countClient}`, user?.token)
       .then(({ data }) => {
@@ -166,9 +162,9 @@ const Rooms = () => {
                 <br />
                 <h2>Nechi kishi bor edi</h2>
                 <select className="styled-select" value={countClient} onChange={(e) => setCountClient(e.target.value)}>
-                  {Array.from({ length: 20 }, (_, i) => (
-                    <option key={i + 1} value={i + 1}>
-                      {i + 1}
+                  {Array.from({ length: 21 }, (_, i) => (
+                    <option key={i} value={i}>
+                      {i}
                     </option>
                   ))}
                 </select>
@@ -200,7 +196,7 @@ const Rooms = () => {
                 user?.role === 1 ? '' : room?.is_active ? (room?.is_belongs_to_user ? '' : 'disabled') : ''
               }`}
             >
-              {(user?.role === 1 ? room?.user_id : user?.id === room?.user_id) ? (
+              {user?.role === 1 ? (
                 <>
                   <button
                     className="cart-view"

@@ -166,9 +166,9 @@ const Order = () => {
               <div className="modal-cc" onClick={(e) => e.stopPropagation()}>
                 <h2>Nechi kishi bor</h2>
                 <select className="styled-select" value={countClient} onChange={(e) => setCountClient(e.target.value)}>
-                  {Array.from({ length: 20 }, (_, i) => (
-                    <option key={i + 1} value={i + 1}>
-                      {i + 1}
+                  {Array.from({ length: 21 }, (_, i) => (
+                    <option key={i} value={i}>
+                      {i}
                     </option>
                   ))}
                 </select>
