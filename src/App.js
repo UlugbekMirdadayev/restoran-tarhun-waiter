@@ -27,6 +27,7 @@ const App = () => {
       dispatch(setRooms(data?.rooms?.map((room) => ({ ...room, is_belongs_to_user: room?.user_id === user?.id }))));
     },
     kickUser: (data) => {
+      if (data?.user_id) return;
       console.log({ data }, 'kickUser');
       if (data?.user_id === user?.id) {
         dispatch(setUser(null));
