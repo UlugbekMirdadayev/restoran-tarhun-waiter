@@ -55,7 +55,7 @@ const Header = () => {
   const getProduct = () => {
     getRequest('product/get', user?.token)
       .then((products) => {
-        dispatch(setProducts(products?.data?.result));
+        dispatch(setProducts(products?.data?.result?.sort((x, y) => Number(x?.disabled) - Number(y?.disabled))));
       })
       .catch((err) => {
         console.log(err?.response?.data?.result);
@@ -75,7 +75,7 @@ const Header = () => {
     dispatch(setOrders([]));
     dispatch(setProducts([]));
     dispatch(setRooms([]));
-    dispatch(setModifiers([]))
+    dispatch(setModifiers([]));
     localStorage.clear();
     postRequest('auth/logout', {}, user?.token)
       .then(({ data }) => {

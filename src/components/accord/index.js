@@ -92,14 +92,16 @@ const Accord = ({ room, id, defaultOpened = false, thisRoomOrders = [] }) => {
                 // recep?.modifier_exists ? (
                 //   <button onClick={() => setModalOpen(recep?.id)}>Modifikatorlar</button>
                 // ) :
-                thisSelectedProd(recep)?.count ? (
-                  <button className="row-bottom">
+                !recep.disabled && thisSelectedProd(recep)?.count ? (
+                  <button className="row-bottom" disabled={recep.disabled}>
                     <Minus onClick={() => handleRemoveBasket(recep)} />
                     {thisSelectedProd(recep)?.count}
                     <Plus onClick={() => handleAddBasket(recep)} />
                   </button>
                 ) : (
-                  <button onClick={() => handleAddBasket(recep)}>{`Qo'shish`}</button>
+                  <button disabled={recep.disabled} onClick={() => handleAddBasket(recep)}>
+                    {recep.disabled ? 'Отключено' : "Qo'shish"}
+                  </button>
                 )
               }
             </div>

@@ -56,11 +56,11 @@ const Order = () => {
           name: _category_name,
           menus: products?.filter(
             ({ category, name }) =>
-              category?.name === _category_name && (search?.length ? name.toLowerCase()?.includes(search?.toLowerCase()) : true)
+              category?.name === _category_name && (search?.length ? name.toLowerCase()?.includes(search?.trim()?.toLowerCase()) : true)
           )
         };
       })
-      .filter(({ menus }) => menus?.find((prod) => prod?.name?.toLowerCase()?.includes(search.toLowerCase())));
+      .filter(({ menus }) => menus?.find((prod) => prod?.name?.toLowerCase()?.includes(search?.trim()?.toLowerCase())));
   }, [products, search]);
 
   // const isOrder = useMemo(() => orders?.find((order) => order?.room_id === id), [orders, id]);
@@ -89,7 +89,7 @@ const Order = () => {
     getRequest('product/get', user?.token)
       .then((products) => {
         setLoading(false);
-        dispatch(setProducts(products?.data?.result));
+        dispatch(setProducts(products?.data?.result?.sort((x, y) => Number(x?.disabled) - Number(y?.disabled))));
       })
       .catch((err) => {
         console.log(err?.response?.data?.result);
