@@ -73,28 +73,28 @@ const App = () => {
     };
   }, [user?.id]);
 
-  useEffect(() => {
-    const socket = new WebSocket(SOCKET_SERVER_URL); // Replace with your WebSocket server URL
-    socket.onopen = () => {
-      const message = JSON.stringify({
-        method: 'kickUser',
-        user_id: user?.id // Replace $owner_id with the actual owner ID value
-      });
+  // useEffect(() => {
+  //   const socket = new WebSocket(SOCKET_SERVER_URL); // Replace with your WebSocket server URL
+  //   socket.onopen = () => {
+  //     const message = JSON.stringify({
+  //       method: 'kickUser',
+  //       user_id: user?.id // Replace $owner_id with the actual owner ID value
+  //     });
 
-      socket.send(message);
-    };
-    socket.onmessage = (event) => {
-      const message = JSON.parse(event?.data || '{}');
-      methods[message?.method]?.(message);
-    };
+  //     socket.send(message);
+  //   };
+  //   socket.onmessage = (event) => {
+  //     const message = JSON.parse(event?.data || '{}');
+  //     methods[message?.method]?.(message);
+  //   };
 
-    socket.onclose = () => {
-      console.log('Disconnected from WebSocket server');
-    };
-    return () => {
-      socket.close();
-    };
-  }, [user?.id]);
+  //   socket.onclose = () => {
+  //     console.log('Disconnected from WebSocket server');
+  //   };
+  //   return () => {
+  //     socket.close();
+  //   };
+  // }, [user?.id]);
 
   return (
     <div className="container">

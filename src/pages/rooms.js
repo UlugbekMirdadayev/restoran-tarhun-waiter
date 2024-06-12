@@ -58,6 +58,24 @@ const Rooms = () => {
       });
   };
 
+  const handlePrint = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setLoading(true);
+    getRequest(`order/print/${oldOrders?.order_id}`, user?.token)
+      .then(({ data }) => {
+        console.log(data, 'data');
+        setLoading(false);
+        toast.success('Print qilindi');
+        setIsOrderMore({ open: false });
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err, 'err');
+        toast.error('Xatolik yuz berdi');
+      });
+  };
+
   const handleOpenDetails = (e, room_id) => {
     e.preventDefault();
     e.stopPropagation();
@@ -160,7 +178,7 @@ const Rooms = () => {
                   />
                 ))}
                 <br />
-                <h2>Nechi kishi bor edi</h2>
+                <h2>Количество клиентов:</h2>
                 <select className="styled-select" value={countClient} onChange={(e) => setCountClient(e.target.value)}>
                   {Array.from({ length: 21 }, (_, i) => (
                     <option key={i} value={i}>
@@ -170,8 +188,11 @@ const Rooms = () => {
                 </select>
               </ol>
             </div>
+            <button className="order-btn full-btn" disabled={!oldOrders?.order_id} onClick={handlePrint}>
+              Выдача чека
+            </button>
             <button className="order-btn full-btn" onClick={handleComplete}>
-              Buyurtmani yopish {oldOrders?.total && `${formatCurrencyUZS(oldOrders?.total)?.replace('UZS', '')} UZS`}
+              Закрытие заказа {oldOrders?.total && `${formatCurrencyUZS(oldOrders?.total)?.replace('UZS', '')} UZS`}
             </button>
           </div>
         </div>
