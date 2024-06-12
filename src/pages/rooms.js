@@ -58,11 +58,11 @@ const Rooms = () => {
       });
   };
 
-  const handlePrint = (e) => {
+  const handlePrint = (e, room_id) => {
     e.preventDefault();
     e.stopPropagation();
     setLoading(true);
-    getRequest(`order/print/${oldOrders?.order_id}`, user?.token)
+    getRequest(`room/print/${room_id}`, user?.token)
       .then(({ data }) => {
         console.log(data, 'data');
         setLoading(false);
@@ -188,7 +188,7 @@ const Rooms = () => {
                 </select>
               </ol>
             </div>
-            <button className="order-btn full-btn" disabled={!oldOrders?.order_id} onClick={handlePrint}>
+            <button className="order-btn full-btn" disabled={!isOrderMore.open} onClick={(e) => handlePrint(e, isOrderMore.open)}>
               Выдача чека
             </button>
             <button className="order-btn full-btn" onClick={handleComplete}>
